@@ -72,7 +72,7 @@ class TabAPIUIViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
             bbPlayerView?.pause()
             break
         case "Load":
-            bbPlayerView?.load(contentId: "1084217", contentIndicator: "c", initiator: nil, autoPlay: nil, seekPosition: nil)
+            bbPlayerView?.load(contentId: "1084217", contentIndicator: "c", initiator: nil, autoPlay: true, seekPosition: nil)  // note the autoplay true sot eh video starts playing when it is loaded
             break
         case "GetThumnailUrlString":
             if let thumbnailUrlString = bbPlayerView?.getThumbnailUrlString(clipId: "123456", width: 300, height: 200) {
