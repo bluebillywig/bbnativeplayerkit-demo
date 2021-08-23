@@ -9,3 +9,5 @@ How to use:
 
 - Open the project file `bbnativeplayerkit-demo.xcworkspace` (NOT `bbnativeplayerkit-demo.xcodeproj`)
 - Run the application
+
+## We will (probably;) not accept pull requests
