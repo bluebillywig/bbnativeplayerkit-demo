@@ -8,6 +8,7 @@
 import UIKit
 import BBNativePlayerKit
 import bbnativeshared
+import AVKit
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -45,6 +46,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the user discards a scene session.
         // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
+    }
+
+    func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
+        guard let rvc = window?.rootViewController else {
+            return .portrait
+        }
+        if let vc = getCurrentViewController(rvc) {
+            if vc is AVPlayerViewController {
+                return .allButUpsideDown
+            }
+        }
+        return .portrait
+    }
+
+    func getCurrentViewController(_ vc: UIViewController) -> UIViewController? {
+        if let pvc = vc.presentedViewController {
+            return getCurrentViewController(pvc)
+        } else if let svc = vc as? UISplitViewController, svc.viewControllers.count > 0 {
+            return getCurrentViewController(svc.viewControllers.last!)
+        } else if let nc = vc as? UINavigationController, nc.viewControllers.count > 0 {
+            return getCurrentViewController(nc.topViewController!)
+        } else if let tbc = vc as? UITabBarController {
+            if let svc = tbc.selectedViewController {
+                return getCurrentViewController(svc)
+            }
+        }
+        return vc
     }
 
 
