@@ -94,12 +94,31 @@ class MenuUIViewController: UIViewController, MenuCollectionViewControllerDelega
                     let alertController = UIAlertController(title: "Enter your shorts json url", message: nil, preferredStyle: .alert)
 
                     alertController.addTextField { textField in
-                        textField.text = "https://maxetise.bbvms.com/sh/60.json"
+                        textField.text = "https://demo.bbvms.com/sh/43.json"
                     }
 
                     let submitAction = UIAlertAction(title: "Submit", style: .default) { _ in
                         if let text = alertController.textFields?.first?.text {
                             if let svc: ShortsUIViewController = vc as? ShortsUIViewController {
+                                svc.jsonUrl = text
+                                self.navigationController?.pushViewController(vc, animated: true)
+                            }
+                        }
+                    }
+
+                    alertController.addAction(submitAction)
+
+                    present(alertController, animated: true, completion: nil)
+                } else if (menuItem.name == "shorts_shelf_beta"){
+                    let alertController = UIAlertController(title: "Enter your shorts json url", message: nil, preferredStyle: .alert)
+
+                    alertController.addTextField { textField in
+                        textField.text = "https://demo.bbvms.com/sh/43.json"
+                    }
+
+                    let submitAction = UIAlertAction(title: "Submit", style: .default) { _ in
+                        if let text = alertController.textFields?.first?.text {
+                            if let svc: ShortsShelfUIViewController = vc as? ShortsShelfUIViewController {
                                 svc.jsonUrl = text
                                 self.navigationController?.pushViewController(vc, animated: true)
                             }
@@ -207,6 +226,12 @@ class MenuCollectionViewController: UIViewController, UICollectionViewDelegate, 
         menuItems.append(menuItem)
         menuItem = MenuItem(name: "shorts_beta",
                                 title: "Shorts Beta",
+                                color1: UIColor.init(hex: "#E7AA5AFF") ?? UIColor.systemGray,
+                                color2: UIColor.init(hex: "#DC8237FF") ?? UIColor.systemGray)
+        menuItems.append(menuItem)
+        
+        menuItem = MenuItem(name: "shorts_shelf_beta",
+                                title: "Shorts Shelf Beta",
                                 color1: UIColor.init(hex: "#E7AA5AFF") ?? UIColor.systemGray,
                                 color2: UIColor.init(hex: "#DC8237FF") ?? UIColor.systemGray)
         menuItems.append(menuItem)
