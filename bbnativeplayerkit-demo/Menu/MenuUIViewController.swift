@@ -90,7 +90,7 @@ class MenuUIViewController: UIViewController, MenuCollectionViewControllerDelega
 
                     present(alertController, animated: true, completion: nil)
                     
-                } else if (menuItem.name == "shorts_beta"){
+                } else if (menuItem.name == "shorts"){
                     let alertController = UIAlertController(title: "Enter your shorts json url", message: nil, preferredStyle: .alert)
 
                     alertController.addTextField { textField in
@@ -109,11 +109,11 @@ class MenuUIViewController: UIViewController, MenuCollectionViewControllerDelega
                     alertController.addAction(submitAction)
 
                     present(alertController, animated: true, completion: nil)
-                } else if (menuItem.name == "shorts_shelf_beta"){
+                } else if (menuItem.name == "shorts_shelf"){
                     let alertController = UIAlertController(title: "Enter your shorts json url", message: nil, preferredStyle: .alert)
 
                     alertController.addTextField { textField in
-                        textField.text = "https://demo.bbvms.com/sh/43.json"
+                        textField.text = "https://testsuite.acc.bbvms.com/sh/51.json"
                     }
 
                     let submitAction = UIAlertAction(title: "Submit", style: .default) { _ in
@@ -224,14 +224,14 @@ class MenuCollectionViewController: UIViewController, UICollectionViewDelegate, 
                                 color1: UIColor.init(hex: "#DE433CFF") ?? UIColor.systemGray,
                                 color2: UIColor.init(hex: "#CE2824FF") ?? UIColor.systemGray)
         menuItems.append(menuItem)
-        menuItem = MenuItem(name: "shorts_beta",
-                                title: "Shorts Beta",
+        menuItem = MenuItem(name: "shorts",
+                                title: "Shorts",
                                 color1: UIColor.init(hex: "#E7AA5AFF") ?? UIColor.systemGray,
                                 color2: UIColor.init(hex: "#DC8237FF") ?? UIColor.systemGray)
         menuItems.append(menuItem)
         
-        menuItem = MenuItem(name: "shorts_shelf_beta",
-                                title: "Shorts Shelf Beta",
+        menuItem = MenuItem(name: "shorts_shelf",
+                                title: "Shorts Shelf",
                                 color1: UIColor.init(hex: "#E7AA5AFF") ?? UIColor.systemGray,
                                 color2: UIColor.init(hex: "#DC8237FF") ?? UIColor.systemGray)
         menuItems.append(menuItem)

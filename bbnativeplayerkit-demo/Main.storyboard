@@ -251,7 +251,7 @@
         <!--ShortsUI View Controller-->
         <scene sceneID="S3P-Yv-0iq">
             <objects>
-                <viewController storyboardIdentifier="shorts_beta" id="jYI-9m-wYn" customClass="ShortsUIViewController" customModule="bbnativeplayerkit_demo" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="shorts" id="jYI-9m-wYn" customClass="ShortsUIViewController" customModule="bbnativeplayerkit_demo" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="xO2-p5-W2G">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -266,7 +266,7 @@
         <!--Shorts ShelfUI View Controller-->
         <scene sceneID="tAW-y9-Aix">
             <objects>
-                <viewController storyboardIdentifier="shorts_shelf_beta" id="l0x-Ng-nnJ" customClass="ShortsShelfUIViewController" customModule="bbnativeplayerkit_demo" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="shorts_shelf" id="l0x-Ng-nnJ" customClass="ShortsShelfUIViewController" customModule="bbnativeplayerkit_demo" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="b90-nP-xmx">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -276,7 +276,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MwH-vW-am9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="442" y="-1481"/>
+            <point key="canvasLocation" x="432" y="-1481"/>
         </scene>
     </scenes>
     <resources>

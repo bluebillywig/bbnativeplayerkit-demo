@@ -12,7 +12,7 @@ import BBNativePlayerKit
 class ShortsShelfUIViewController: UIViewController {
 
     internal var bbShortsViewShelf: BBNativeShortsView? = nil
-    internal var jsonUrl:String = "https://testsuite.acc.bbvms.com/sh/17.json"
+    internal var jsonUrl:String = "https://demo.bbvms.com/sh/43.json"
     
     override func viewDidLoad() {
         super.viewDidLoad()
