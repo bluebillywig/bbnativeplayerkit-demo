@@ -60,6 +60,20 @@
 		EDF93C4C2D6E005A00BF8F42 /* ShortsShelfUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortsShelfUIViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		ED9D45982DC925E800F7E419 /* BBRenderer */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+			);
+			explicitFileTypes = {
+			};
+			explicitFolders = (
+			);
+			path = BBRenderer;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
 /* Begin PBXFrameworksBuildPhase section */
 		ED533D3825EE2D5A007F22A8 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
@@ -120,6 +134,7 @@
 				EDD81619263BEB0600381B4B /* WebView */,
 				ED9124C327BCF92D001286F9 /* ChromeCast */,
 				EDA32B742C172A8D006ADF87 /* Shorts */,
+				ED9D45982DC925E800F7E419 /* BBRenderer */,
 				ED533D7025EE2DF7007F22A8 /* AppDelegate.swift */,
 				ED533D7125EE2DF7007F22A8 /* SceneDelegate.swift */,
 				ED533D6F25EE2DF7007F22A8 /* ViewController.swift */,
@@ -251,12 +266,15 @@
 				ED533D3725EE2D5A007F22A8 /* Sources */,
 				ED533D3825EE2D5A007F22A8 /* Frameworks */,
 				ED533D3925EE2D5A007F22A8 /* Resources */,
-				8DCB64FA68CE4016C43446CC /* [CP] Embed Pods Frameworks */,
-				71841FCAB4B817A8D88DB4E8 /* [CP] Copy Pods Resources */,
+				3972CEC847B87E9446D7D774 /* [CP] Embed Pods Frameworks */,
+				FE5AB320DCE3804C6315FE81 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				ED9D45982DC925E800F7E419 /* BBRenderer */,
 			);
 			name = "bbnativeplayerkit-demo";
 			productName = "bbnativeplayerkit-demo";
@@ -331,24 +349,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		71841FCAB4B817A8D88DB4E8 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-bbnativeplayerkit-demo/Pods-bbnativeplayerkit-demo-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-bbnativeplayerkit-demo/Pods-bbnativeplayerkit-demo-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-bbnativeplayerkit-demo/Pods-bbnativeplayerkit-demo-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		8DCB64FA68CE4016C43446CC /* [CP] Embed Pods Frameworks */ = {
+		3972CEC847B87E9446D7D774 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -363,6 +364,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-bbnativeplayerkit-demo/Pods-bbnativeplayerkit-demo-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FE5AB320DCE3804C6315FE81 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-bbnativeplayerkit-demo/Pods-bbnativeplayerkit-demo-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-bbnativeplayerkit-demo/Pods-bbnativeplayerkit-demo-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-bbnativeplayerkit-demo/Pods-bbnativeplayerkit-demo-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -521,7 +539,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = PFYB2YN255;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -533,7 +551,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 8.22.0;
+				MARKETING_VERSION = 8.23.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.bluebillywig.bbnativeplayerkit-demo";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -548,7 +566,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = PFYB2YN255;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -560,7 +578,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 8.22.0;
+				MARKETING_VERSION = 8.23.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.bluebillywig.bbnativeplayerkit-demo";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
