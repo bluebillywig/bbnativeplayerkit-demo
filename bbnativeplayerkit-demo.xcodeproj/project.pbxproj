@@ -61,17 +61,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		ED9D45982DC925E800F7E419 /* BBRenderer */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-			);
-			explicitFileTypes = {
-			};
-			explicitFolders = (
-			);
-			path = BBRenderer;
-			sourceTree = "<group>";
-		};
+		ED9D45982DC925E800F7E419 /* BBRenderer */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = BBRenderer; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -551,7 +541,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 8.23.0;
+				MARKETING_VERSION = 8.25.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.bluebillywig.bbnativeplayerkit-demo";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -578,7 +568,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 8.23.0;
+				MARKETING_VERSION = 8.25.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.bluebillywig.bbnativeplayerkit-demo";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

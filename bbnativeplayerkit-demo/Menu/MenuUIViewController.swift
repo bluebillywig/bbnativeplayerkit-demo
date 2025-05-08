@@ -260,7 +260,7 @@ class MenuCollectionViewController: UIViewController, UICollectionViewDelegate, 
                             color1: UIColor.init(hex: "#E7AA5AFF") ?? UIColor.systemGray,
                             color2: UIColor.init(hex: "#DC8237FF") ?? UIColor.systemGray)
         menuItem = MenuItem(name: "BBRenderer",
-                            title: "BBRenderer",
+                            title: "Vast Renderer",
                             color1: UIColor.init(hex: "#793BEBFF") ?? UIColor.systemGray,
                             color2: UIColor.init(hex: "#4823E2FF") ?? UIColor.systemGray)
         menuItems.append(menuItem)
