@@ -17,7 +17,7 @@ class ShortsUIViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        bbShortsView = BBNativeShorts.createShortsView(uiViewController: self, frame: view.frame, jsonUrl: jsonUrl)
+        bbShortsView = BBNativeShorts.createShortsView(uiViewController: self, frame: view.frame, jsonUrl: jsonUrl, options: ["skipShortsAdOnSwipe": true])
         view.addSubview(bbShortsView!)
         bbShortsView?.translatesAutoresizingMaskIntoConstraints = false
         bbShortsView?.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor).isActive = true
