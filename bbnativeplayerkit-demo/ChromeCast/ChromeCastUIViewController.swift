@@ -9,7 +9,22 @@ import UIKit
 import BBNativePlayerKit
 import bbnativeshared
 
-class ChromeCastUIViewController: UIViewController {
+class ChromeCastUIViewController: UIViewController, PlayerConfigurable {
+
+    var jsonUrl: String = "https://demo.bbvms.com/p/default/c/4146866.json"
+    var playerOptions: [String: Any] = ["showChromeCastMiniControlsInPlayer": true]
+    
+    var defaultJsonUrl: String {
+        return "https://demo.bbvms.com/p/default/c/4146866.json"
+    }
+    
+    var defaultPlayerOptions: [String: Any] {
+        return ["showChromeCastMiniControlsInPlayer": true]
+    }
+    
+    var alertTitle: String {
+        return "Enter ChromeCast demo configuration"
+    }
 
     private var bbPlayerView: BBNativePlayerView? = nil
     lazy var playerHeightConstraint = bbPlayerView?.heightAnchor.constraint(equalToConstant: view.safeAreaLayoutGuide.layoutFrame.width * 9/16)
@@ -18,8 +33,7 @@ class ChromeCastUIViewController: UIViewController {
         super.viewDidLoad()
 
         // create player view using the embed url
-        bbPlayerView = BBNativePlayer.createPlayerView(uiViewController: self, frame: view.frame, jsonUrl: "https://demo.bbvms.com/p/default/c/4146866.json", options: ["showChromeCastMiniControlsInPlayer": true]
-        )
+        bbPlayerView = BBNativePlayer.createPlayerView(uiViewController: self, frame: view.frame, jsonUrl: jsonUrl, options: playerOptions)
         
         // use constraints to place and size the player view
         view.addSubview(bbPlayerView!)

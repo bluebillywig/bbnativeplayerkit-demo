@@ -9,7 +9,22 @@ import Foundation
 import UIKit
 import BBNativePlayerKit
 
-class PrePostrollUIViewController: UIViewController {
+class PrePostrollUIViewController: UIViewController, PlayerConfigurable {
+    
+    var jsonUrl: String = "https://demo.bbvms.com/p/native_sdk_preroll/c/4256600.json"
+    var playerOptions: [String: Any] = [:]
+    
+    var defaultJsonUrl: String {
+        return "https://demo.bbvms.com/p/native_sdk_preroll/c/4256600.json"
+    }
+    
+    var defaultPlayerOptions: [String: Any] {
+        return [:]
+    }
+    
+    var alertTitle: String {
+        return "Enter Pre-Post-Roll demo configuration"
+    }
     
     lazy var playerTopConstraint = bbPlayerView?.topAnchor.constraint(equalTo: view.topAnchor, constant: 300 )
     lazy var playerWidthConstraint = bbPlayerView?.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -10)
@@ -49,7 +64,7 @@ Felis bibendum ut tristique et egestas. Bibendum neque egestas congue quisque eg
         
         
         // Create player with content playing pre- and postroll advertisements
-        bbPlayerView = BBNativePlayer.createPlayerView(uiViewController: self, frame: view.frame, jsonUrl: "https://demo.bbvms.com/p/native_sdk_preroll/c/4256600.json")
+        bbPlayerView = BBNativePlayer.createPlayerView(uiViewController: self, frame: view.frame, jsonUrl: jsonUrl, options: playerOptions)
         bbPlayerView?.delegate = self
         // Add player to View
         view.addSubview(bbPlayerView!)

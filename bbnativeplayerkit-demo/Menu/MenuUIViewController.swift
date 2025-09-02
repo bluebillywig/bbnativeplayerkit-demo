@@ -9,6 +9,14 @@ import Foundation
 import UIKit
 import BBNativePlayerKit
 
+protocol PlayerConfigurable {
+    var jsonUrl: String { get set }
+    var playerOptions: [String: Any] { get set }
+    var defaultJsonUrl: String { get }
+    var defaultPlayerOptions: [String: Any] { get }
+    var alertTitle: String { get }
+}
+
 class MenuUIViewController: UIViewController, MenuCollectionViewControllerDelegate {
     
     private var vastXML: String = ""
@@ -71,92 +79,88 @@ class MenuUIViewController: UIViewController, MenuCollectionViewControllerDelega
             if let vc = self.storyboard?.instantiateViewController(withIdentifier: menuItem.name) {
                 vc.title = menuItem.title
                 
-                if ( menuItem.name == "Outstream" ) {
-                    let alertController = UIAlertController(title: "Enter your outstream json url", message: nil, preferredStyle: .alert)
-                    
-                    alertController.addTextField { textField in
-                        textField.text = "https://demo.bbvms.com/a/native_sdk_outstream.json"
-                    }
-                    
-                    let submitAction = UIAlertAction(title: "Submit", style: .default) { _ in
-                        if let text = alertController.textFields?.first?.text {
-                            if let osvc: OutStreamUIViewController = vc as? OutStreamUIViewController {
-                                osvc.jsonUrl = text
-                                self.navigationController?.pushViewController(vc, animated: true)
-                            }
-                        }
-                    }
-                    
-                    alertController.addAction(submitAction)
-                    present(alertController, animated: true, completion: nil)
-                } else if (menuItem.name == "shorts"){
-                    let alertController = UIAlertController(title: "Enter your shorts json url", message: nil, preferredStyle: .alert)
-                    
-                    alertController.addTextField { textField in
-                        textField.text = "https://demo.bbvms.com/sh/43.json"
-                    }
-                    
-                    let submitAction = UIAlertAction(title: "Submit", style: .default) { _ in
-                        if let text = alertController.textFields?.first?.text {
-                            if let svc: ShortsUIViewController = vc as? ShortsUIViewController {
-                                svc.jsonUrl = text
-                                self.navigationController?.pushViewController(vc, animated: true)
-                            }
-                        }
-                    }
-                    
-                    alertController.addAction(submitAction)
-                    present(alertController, animated: true, completion: nil)
-                } else if (menuItem.name == "shorts_shelf"){
-                    let alertController = UIAlertController(title: "Enter your shorts json url", message: nil, preferredStyle: .alert)
-                    
-                    alertController.addTextField { textField in
-                        textField.text = "https://testsuite.acc.bbvms.com/sh/51.json"
-                    }
-                    
-                    let submitAction = UIAlertAction(title: "Submit", style: .default) { _ in
-                        if let text = alertController.textFields?.first?.text {
-                            if let svc: ShortsShelfUIViewController = vc as? ShortsShelfUIViewController {
-                                svc.jsonUrl = text
-                                self.navigationController?.pushViewController(vc, animated: true)
-                            }
-                        }
-                    }
-                    
-                    alertController.addAction(submitAction)
-                    present(alertController, animated: true, completion: nil)
+                if let configurableVC = vc as? PlayerConfigurable {
+                    showPlayerConfigurationAlert(for: configurableVC, viewController: vc)
                 } else if (menuItem.name == "BBRenderer") {
-                    print("***** BBRENDERER")
-                    let alertController = UIAlertController(title: "Enter your BBRenderer json url", message: nil, preferredStyle: .alert)
-                    
-                    self.setVastXML()
-                    
-                    alertController.addTextField { textField in
-                        textField.text = "https://bb.dev.bbvms.com/r/puc_inarticle.json"
-                    }
-                    alertController.addTextField { textField in
-                        textField.text = self.vastXML
-                    }
-                    
-                    let submitAction = UIAlertAction(title: "Submit", style: .default) { _ in
-                        print("***** Submitted")
-                        if let jsonString = alertController.textFields?.first?.text {
-                            if let vastString = alertController.textFields?[1].text {
-                                if let bvc: BBRendererUIViewController = vc as? BBRendererUIViewController {
-                                    bvc.jsonUrl = jsonString
-                                    bvc.vastXml = vastString
-                                    self.navigationController?.pushViewController(bvc, animated: true)
-                                }
-                            }
-                        }
-                    }
-                    
-                    alertController.addAction(submitAction)
-                    present(alertController, animated: true, completion: nil)
+                    showBBRendererConfigurationAlert(for: vc)
                 } else {
                     self.navigationController?.pushViewController(vc, animated: true)
                 }
             }
+        }
+    }
+    
+    private func showPlayerConfigurationAlert(for configurableVC: PlayerConfigurable, viewController: UIViewController) {
+        let alertController = UIAlertController(title: configurableVC.alertTitle, message: nil, preferredStyle: .alert)
+        
+        alertController.addTextField { textField in
+            textField.placeholder = "JSON URL"
+            textField.text = configurableVC.defaultJsonUrl
+        }
+        
+        alertController.addTextField { textField in
+            textField.placeholder = "Options (JSON)"
+            textField.text = self.convertOptionsToJSONString(configurableVC.defaultPlayerOptions)
+        }
+        
+        let submitAction = UIAlertAction(title: "Submit", style: .default) { _ in
+            guard let jsonUrlText = alertController.textFields?[0].text,
+                  let optionsText = alertController.textFields?[1].text else { return }
+            
+            var configurableVC = configurableVC
+            configurableVC.jsonUrl = jsonUrlText
+            configurableVC.playerOptions = self.parseOptionsFromJSONString(optionsText) ?? configurableVC.defaultPlayerOptions
+            
+            self.navigationController?.pushViewController(viewController, animated: true)
+        }
+        
+        alertController.addAction(submitAction)
+        present(alertController, animated: true, completion: nil)
+    }
+    
+    private func showBBRendererConfigurationAlert(for viewController: UIViewController) {
+        let alertController = UIAlertController(title: "Enter your BBRenderer configuration", message: nil, preferredStyle: .alert)
+        
+        self.setVastXML()
+        
+        alertController.addTextField { textField in
+            textField.placeholder = "JSON URL"
+            textField.text = "https://bb.dev.bbvms.com/r/puc_inarticle.json"
+        }
+        alertController.addTextField { textField in
+            textField.placeholder = "VAST XML"
+            textField.text = self.vastXML
+        }
+        
+        let submitAction = UIAlertAction(title: "Submit", style: .default) { _ in
+            if let jsonString = alertController.textFields?[0].text,
+               let vastString = alertController.textFields?[1].text,
+               let bvc = viewController as? BBRendererUIViewController {
+                bvc.jsonUrl = jsonString
+                bvc.vastXml = vastString
+                self.navigationController?.pushViewController(viewController, animated: true)
+            }
+        }
+        
+        alertController.addAction(submitAction)
+        present(alertController, animated: true, completion: nil)
+    }
+    
+    private func convertOptionsToJSONString(_ options: [String: Any]) -> String {
+        do {
+            let jsonData = try JSONSerialization.data(withJSONObject: options, options: .prettyPrinted)
+            return String(data: jsonData, encoding: .utf8) ?? "{}"
+        } catch {
+            return "{}"
+        }
+    }
+    
+    private func parseOptionsFromJSONString(_ jsonString: String) -> [String: Any]? {
+        guard let jsonData = jsonString.data(using: .utf8) else { return nil }
+        do {
+            return try JSONSerialization.jsonObject(with: jsonData, options: []) as? [String: Any]
+        } catch {
+            return nil
         }
     }
 }

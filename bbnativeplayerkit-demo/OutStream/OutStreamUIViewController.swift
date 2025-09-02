@@ -7,9 +7,22 @@ import Foundation
 import UIKit
 import BBNativePlayerKit
 
-class OutStreamUIViewController: UIViewController {
+class OutStreamUIViewController: UIViewController, PlayerConfigurable {
 
-    internal var jsonUrl:String = "https://demo.bbvms.com/a/native_sdk_outstream.json"
+    var jsonUrl: String = "https://demo.bbvms.com/a/native_sdk_outstream.json"
+    var playerOptions: [String: Any] = [:]
+    
+    var defaultJsonUrl: String {
+        return "https://demo.bbvms.com/a/native_sdk_outstream.json"
+    }
+    
+    var defaultPlayerOptions: [String: Any] {
+        return [:]
+    }
+    
+    var alertTitle: String {
+        return "Enter Outstream demo configuration"
+    }
     
     let containerView: UIView = {
         let view = UIView()
@@ -101,7 +114,7 @@ Vestibulum lorem sed risus ultricies tristique. Tellus in metus vulputate eu sce
         containerView.layoutIfNeeded()
 
         // Create player using playout with inview play and outview pause action
-        bbPlayerView = BBNativePlayer.createPlayerView(uiViewController: self, frame: view.frame, jsonUrl: jsonUrl)
+        bbPlayerView = BBNativePlayer.createPlayerView(uiViewController: self, frame: view.frame, jsonUrl: jsonUrl, options: playerOptions)
 
         // Add player to scrollView
         scrollView.addSubview(bbPlayerView!)

@@ -9,7 +9,22 @@ import UIKit
 import WebKit
 import BBNativePlayerKit
 
-class WebViewUIViewController: UIViewController {
+class WebViewUIViewController: UIViewController, PlayerConfigurable {
+    
+    var jsonUrl: String = "https://bluebillywig.tv/native-demo/"
+    var playerOptions: [String: Any] = [:]
+    
+    var defaultJsonUrl: String {
+        return "https://bluebillywig.tv/native-demo/"
+    }
+    
+    var defaultPlayerOptions: [String: Any] {
+        return [:]
+    }
+    
+    var alertTitle: String {
+        return "Enter WebView demo configuration"
+    }
     
     private let webView = WKWebView(frame: .zero)
     private let startVideoInNativePlayer = "startVideoInNativePlayer"
@@ -28,7 +43,7 @@ class WebViewUIViewController: UIViewController {
         ])
 
         self.view.setNeedsLayout()
-        let request = URLRequest(url: URL.init(string: "https://bluebillywig.tv/native-demo/")!)
+        let request = URLRequest(url: URL.init(string: jsonUrl)!)
         
         
         let contentController = self.webView.configuration.userContentController
@@ -47,7 +62,7 @@ extension WebViewUIViewController: WKScriptMessageHandler {
                     return
             }
             
-            _ = BBNativePlayer.createModalPlayerView(uiViewContoller: self, jsonUrl: embedUrl)
+            _ = BBNativePlayer.createModalPlayerView(uiViewContoller: self, jsonUrl: embedUrl, options: playerOptions)
         }
     }
 }

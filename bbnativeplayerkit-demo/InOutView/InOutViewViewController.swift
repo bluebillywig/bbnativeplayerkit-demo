@@ -9,7 +9,22 @@ import Foundation
 import UIKit
 import BBNativePlayerKit
 
-class InOutViewViewController: UIViewController {
+class InOutViewViewController: UIViewController, PlayerConfigurable {
+
+    var jsonUrl: String = "https://demo.bbvms.com/p/native_sdk_inoutview/c/4256635.json"
+    var playerOptions: [String: Any] = [:]
+    
+    var defaultJsonUrl: String {
+        return "https://demo.bbvms.com/p/native_sdk_inoutview/c/4256635.json"
+    }
+    
+    var defaultPlayerOptions: [String: Any] {
+        return [:]
+    }
+    
+    var alertTitle: String {
+        return "Enter In-Out-View demo configuration"
+    }
 
     let containerView: UIView = {
         let view = UIView()
@@ -115,7 +130,7 @@ Non pulvinar neque laoreet suspendisse interdum consectetur libero. Volutpat odi
         let imageFrame = UIBezierPath(rect: imageView.frame)
         
         // Create player using playout with inview play and outview pause action
-        bbPlayerView = BBNativePlayer.createPlayerView(uiViewController: self, frame: view.frame, jsonUrl: "https://demo.bbvms.com/p/native_sdk_inoutview/c/4256635.json")
+        bbPlayerView = BBNativePlayer.createPlayerView(uiViewController: self, frame: view.frame, jsonUrl: jsonUrl, options: playerOptions)
 
         // Add player to scrollView
         scrollView.addSubview(bbPlayerView!)

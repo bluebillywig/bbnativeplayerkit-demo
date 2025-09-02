@@ -17,12 +17,15 @@ class ListViewController: UICollectionViewController, UICollectionViewDelegateFl
     let blueBillywigPublicationBaseUrl = "https://demo.bbvms.com"
     let playoutName = "default"
     
+    var dataSourceUrl: String = "https://demo.bbvms.com/json/search?cliplistid=1623750782772352&allowCache=true"
+    var defaultPlayerOptions: [String: Any] = [:]
+    
     var bbPlayerView: BBNativePlayerView?
     var mediaClips: [CollectionViewMediaClipModel]?
     
     //MARK: - Uing the Blue Billywig search api to fetch a cliplist
     func fetchVideos() {
-        let url = URL(string: "\(blueBillywigPublicationBaseUrl)/json/search?cliplistid=1623750782772352&allowCache=true")
+        let url = URL(string: dataSourceUrl)
         
         let request: URLRequest? = URLRequest(url: url!)
 
@@ -129,13 +132,10 @@ class ListViewController: UICollectionViewController, UICollectionViewDelegateFl
     
     // Show video using the Blue Billywig player SDK
     func ShowVideo( url: String, index: Int) {
-        var options: [String:Any]? = nil
+        var options: [String:Any] = defaultPlayerOptions
         
         if ( index % 2 != 0 ) {
-            options = [
-                "autoPlay": false,
-                "showChromeCastMiniControlsInPlayer": true
-            ]
+            options["autoPlay"] = false
         }
         // Create player and present it modally
         _ = BBNativePlayer.createModalPlayerView(uiViewContoller: self, jsonUrl: url, options: options )
