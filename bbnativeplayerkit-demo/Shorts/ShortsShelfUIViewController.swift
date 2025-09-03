@@ -20,7 +20,7 @@ class ShortsShelfUIViewController: UIViewController, PlayerConfigurable {
     }
     
     var defaultPlayerOptions: [String: Any] {
-        return ["displayFormat": "list"]
+        return playerOptions
     }
     
     var alertTitle: String {

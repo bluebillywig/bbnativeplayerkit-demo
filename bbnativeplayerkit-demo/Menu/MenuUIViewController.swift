@@ -9,6 +9,10 @@ import Foundation
 import UIKit
 import BBNativePlayerKit
 
+protocol PlayerOptionsEditorDelegate: AnyObject {
+    func didSaveOptions(_ options: [String: Any], jsonUrl: String)
+}
+
 protocol PlayerConfigurable {
     var jsonUrl: String { get set }
     var playerOptions: [String: Any] { get set }
@@ -17,9 +21,12 @@ protocol PlayerConfigurable {
     var alertTitle: String { get }
 }
 
-class MenuUIViewController: UIViewController, MenuCollectionViewControllerDelegate {
+class MenuUIViewController: UIViewController, MenuCollectionViewControllerDelegate, PlayerOptionsEditorDelegate {
     
     private var vastXML: String = ""
+    private var currentConfigurableVC: PlayerConfigurable?
+    private var currentViewController: UIViewController?
+    private var playerOptionsEnabled: Bool = false
     
     private let backGroundImage:UIImageView = {
         let imageView:UIImageView = UIImageView()
@@ -38,8 +45,37 @@ class MenuUIViewController: UIViewController, MenuCollectionViewControllerDelega
         return imageView
     }()
     
+    private let toggleContainerView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.black.withAlphaComponent(0.4)
+        view.layer.cornerRadius = 16
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    private let toggleLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Options"
+        label.textColor = .white
+        label.font = .systemFont(ofSize: 12, weight: .regular)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = .center
+        return label
+    }()
+    
+    private let toggleSwitch: UISwitch = {
+        let toggle = UISwitch()
+        toggle.isOn = false
+        toggle.onTintColor = .systemGreen
+        toggle.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
+        toggle.translatesAutoresizingMaskIntoConstraints = false
+        return toggle
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupNavigationBar()
+        loadToggleSwitchState()
         view.addSubview(backGroundImage)
         backGroundImage.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0).isActive = true
         backGroundImage.topAnchor.constraint(equalTo: view.topAnchor, constant: 0).isActive = true
@@ -66,6 +102,30 @@ class MenuUIViewController: UIViewController, MenuCollectionViewControllerDelega
         
         menuCollectionViewController.didMove(toParent: self)
         
+        // Setup toggle container as custom view for navigation bar
+        toggleContainerView.addSubview(toggleLabel)
+        toggleContainerView.addSubview(toggleSwitch)
+        
+        // Add toggle target
+        toggleSwitch.addTarget(self, action: #selector(togglePlayerOptions), for: .valueChanged)
+        
+        //toggleLabel.backgroundColor = .red
+
+        // Setup constraints within the container
+        NSLayoutConstraint.activate([
+            toggleContainerView.heightAnchor.constraint(equalToConstant: 26),
+            toggleContainerView.widthAnchor.constraint(equalToConstant: 100),
+            
+            
+            toggleLabel.leadingAnchor.constraint(equalTo: toggleContainerView.leadingAnchor, constant: 6),
+            toggleLabel.centerYAnchor.constraint(equalTo: toggleContainerView.centerYAnchor),
+            toggleLabel.widthAnchor.constraint(equalToConstant: 45),
+            
+            toggleSwitch.trailingAnchor.constraint(equalTo: toggleContainerView.trailingAnchor, constant: -8),
+            toggleSwitch.centerYAnchor.constraint(equalTo: toggleContainerView.centerYAnchor),
+            toggleSwitch.leadingAnchor.constraint(greaterThanOrEqualTo: toggleLabel.trailingAnchor, constant: 2)
+        ])
+        
         view.addSubview(imageView)
         imageView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
         imageView.topAnchor.constraint(equalTo: menuCollectionView!.bottomAnchor).isActive = true
@@ -74,13 +134,31 @@ class MenuUIViewController: UIViewController, MenuCollectionViewControllerDelega
         view.layoutIfNeeded()
     }
     
+    private func setupNavigationBar() {
+        navigationItem.title = "BlueBillywig"
+        navigationController?.navigationBar.prefersLargeTitles = false
+        
+        // Add toggle as right bar button item with custom view
+        let customBarButtonItem = UIBarButtonItem(customView: toggleContainerView)
+        navigationItem.rightBarButtonItem = customBarButtonItem
+    }
+    
+    @objc private func togglePlayerOptions() {
+        playerOptionsEnabled = toggleSwitch.isOn
+        saveToggleSwitchState()
+    }
+    
     func didSelectMenuItem(menuItem: MenuItem) {
         if ( menuItem.name != "" ) {
             if let vc = self.storyboard?.instantiateViewController(withIdentifier: menuItem.name) {
                 vc.title = menuItem.title
                 
                 if let configurableVC = vc as? PlayerConfigurable {
-                    showPlayerConfigurationAlert(for: configurableVC, viewController: vc)
+                    if playerOptionsEnabled {
+                        showPlayerConfigurationAlert(for: configurableVC, viewController: vc)
+                    } else {
+                        self.navigationController?.pushViewController(vc, animated: true)
+                    }
                 } else if (menuItem.name == "BBRenderer") {
                     showBBRendererConfigurationAlert(for: vc)
                 } else {
@@ -91,31 +169,17 @@ class MenuUIViewController: UIViewController, MenuCollectionViewControllerDelega
     }
     
     private func showPlayerConfigurationAlert(for configurableVC: PlayerConfigurable, viewController: UIViewController) {
-        let alertController = UIAlertController(title: configurableVC.alertTitle, message: nil, preferredStyle: .alert)
+        // Store references for delegate callback
+        currentConfigurableVC = configurableVC
+        currentViewController = viewController
         
-        alertController.addTextField { textField in
-            textField.placeholder = "JSON URL"
-            textField.text = configurableVC.defaultJsonUrl
-        }
+        let optionsEditor = PlayerOptionsEditorViewController()
+        optionsEditor.initialOptions = configurableVC.defaultPlayerOptions
+        optionsEditor.jsonUrl = configurableVC.defaultJsonUrl
+        optionsEditor.delegate = self
         
-        alertController.addTextField { textField in
-            textField.placeholder = "Options (JSON)"
-            textField.text = self.convertOptionsToJSONString(configurableVC.defaultPlayerOptions)
-        }
-        
-        let submitAction = UIAlertAction(title: "Submit", style: .default) { _ in
-            guard let jsonUrlText = alertController.textFields?[0].text,
-                  let optionsText = alertController.textFields?[1].text else { return }
-            
-            var configurableVC = configurableVC
-            configurableVC.jsonUrl = jsonUrlText
-            configurableVC.playerOptions = self.parseOptionsFromJSONString(optionsText) ?? configurableVC.defaultPlayerOptions
-            
-            self.navigationController?.pushViewController(viewController, animated: true)
-        }
-        
-        alertController.addAction(submitAction)
-        present(alertController, animated: true, completion: nil)
+        let navController = UINavigationController(rootViewController: optionsEditor)
+        present(navController, animated: true)
     }
     
     private func showBBRendererConfigurationAlert(for viewController: UIViewController) {
@@ -491,5 +555,31 @@ extension MenuUIViewController {
   </Ad>
  </VAST>
 """
+    }
+    
+    // MARK: - PlayerOptionsEditorDelegate
+    
+    func didSaveOptions(_ options: [String: Any], jsonUrl: String) {
+        guard var configurableVC = currentConfigurableVC,
+              let viewController = currentViewController else { return }
+        
+        configurableVC.jsonUrl = jsonUrl
+        configurableVC.playerOptions = options
+        
+        navigationController?.pushViewController(viewController, animated: true)
+        
+        // Clear references
+        currentConfigurableVC = nil
+        currentViewController = nil
+    }
+    
+    private func loadToggleSwitchState() {
+        let savedState = UserDefaults.standard.bool(forKey: "playerOptionsEnabled")
+        toggleSwitch.isOn = savedState
+        playerOptionsEnabled = savedState
+    }
+    
+    private func saveToggleSwitchState() {
+        UserDefaults.standard.set(toggleSwitch.isOn, forKey: "playerOptionsEnabled")
     }
 }

@@ -19,7 +19,7 @@ class ChromeCastUIViewController: UIViewController, PlayerConfigurable {
     }
     
     var defaultPlayerOptions: [String: Any] {
-        return ["showChromeCastMiniControlsInPlayer": true]
+        return playerOptions
     }
     
     var alertTitle: String {

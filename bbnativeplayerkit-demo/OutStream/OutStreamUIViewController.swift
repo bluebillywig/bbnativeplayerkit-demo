@@ -17,7 +17,7 @@ class OutStreamUIViewController: UIViewController, PlayerConfigurable {
     }
     
     var defaultPlayerOptions: [String: Any] {
-        return [:]
+        return playerOptions
     }
     
     var alertTitle: String {

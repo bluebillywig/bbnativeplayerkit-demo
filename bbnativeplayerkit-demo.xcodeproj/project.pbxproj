@@ -28,6 +28,7 @@
 		ED9D2B862636C77900E69487 /* PrePostrollUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED9D2B852636C77900E69487 /* PrePostrollUIViewController.swift */; };
 		EDA32B762C172BA9006ADF87 /* ShortsUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDA32B752C172BA9006ADF87 /* ShortsUIViewController.swift */; };
 		EDD8161B263BEB4300381B4B /* WebViewUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD8161A263BEB4300381B4B /* WebViewUIViewController.swift */; };
+		EDF8CDF52E6878D3004918CA /* PlayerOptionsEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF8CDF42E6878D3004918CA /* PlayerOptionsEditorViewController.swift */; };
 		EDF93C4D2D6E005B00BF8F42 /* ShortsShelfUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF93C4C2D6E005A00BF8F42 /* ShortsShelfUIViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -57,6 +58,7 @@
 		ED9D2B852636C77900E69487 /* PrePostrollUIViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrePostrollUIViewController.swift; sourceTree = "<group>"; };
 		EDA32B752C172BA9006ADF87 /* ShortsUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortsUIViewController.swift; sourceTree = "<group>"; };
 		EDD8161A263BEB4300381B4B /* WebViewUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewUIViewController.swift; sourceTree = "<group>"; };
+		EDF8CDF42E6878D3004918CA /* PlayerOptionsEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerOptionsEditorViewController.swift; sourceTree = "<group>"; };
 		EDF93C4C2D6E005A00BF8F42 /* ShortsShelfUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortsShelfUIViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -206,6 +208,7 @@
 		ED7FD95126398E9C0043C63C /* Menu */ = {
 			isa = PBXGroup;
 			children = (
+				EDF8CDF42E6878D3004918CA /* PlayerOptionsEditorViewController.swift */,
 				ED7FD95226398EC70043C63C /* MenuUIViewController.swift */,
 			);
 			path = Menu;
@@ -388,6 +391,7 @@
 				ED7FD95326398EC70043C63C /* MenuUIViewController.swift in Sources */,
 				ED533D6B25EE2DE9007F22A8 /* VideoCell.swift in Sources */,
 				ED533D6625EE2DE9007F22A8 /* InOutViewViewController.swift in Sources */,
+				EDF8CDF52E6878D3004918CA /* PlayerOptionsEditorViewController.swift in Sources */,
 				ED9124C527BCF961001286F9 /* ChromeCastUIViewController.swift in Sources */,
 				ED533D6525EE2DE9007F22A8 /* APIUIViewController.swift in Sources */,
 				ED533D6725EE2DE9007F22A8 /* ListViewController.swift in Sources */,

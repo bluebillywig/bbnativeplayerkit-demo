@@ -20,7 +20,7 @@ class ShortsUIViewController: UIViewController, PlayerConfigurable {
     }
     
     var defaultPlayerOptions: [String: Any] {
-        return ["skipShortsAdOnSwipe": true]
+        return playerOptions
     }
     
     var alertTitle: String {
@@ -29,7 +29,6 @@ class ShortsUIViewController: UIViewController, PlayerConfigurable {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         bbShortsView = BBNativeShorts.createShortsView(uiViewController: self, frame: view.frame, jsonUrl: jsonUrl, options: playerOptions)
         view.addSubview(bbShortsView!)
         bbShortsView?.translatesAutoresizingMaskIntoConstraints = false
