@@ -9,9 +9,24 @@ import Foundation
 import UIKit
 import BBNativePlayerKit
 
-class MenuUIViewController: UIViewController, MenuCollectionViewControllerDelegate {
+protocol PlayerOptionsEditorDelegate: AnyObject {
+    func didSaveOptions(_ options: [String: Any], jsonUrl: String)
+}
+
+protocol PlayerConfigurable {
+    var jsonUrl: String { get set }
+    var playerOptions: [String: Any] { get set }
+    var defaultJsonUrl: String { get }
+    var defaultPlayerOptions: [String: Any] { get }
+    var alertTitle: String { get }
+}
+
+class MenuUIViewController: UIViewController, MenuCollectionViewControllerDelegate, PlayerOptionsEditorDelegate {
     
     private var vastXML: String = ""
+    private var currentConfigurableVC: PlayerConfigurable?
+    private var currentViewController: UIViewController?
+    private var playerOptionsEnabled: Bool = false
     
     private let backGroundImage:UIImageView = {
         let imageView:UIImageView = UIImageView()
@@ -30,8 +45,37 @@ class MenuUIViewController: UIViewController, MenuCollectionViewControllerDelega
         return imageView
     }()
     
+    private let toggleContainerView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.black.withAlphaComponent(0.4)
+        view.layer.cornerRadius = 16
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    private let toggleLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Options"
+        label.textColor = .white
+        label.font = .systemFont(ofSize: 12, weight: .regular)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = .center
+        return label
+    }()
+    
+    private let toggleSwitch: UISwitch = {
+        let toggle = UISwitch()
+        toggle.isOn = false
+        toggle.onTintColor = .systemGreen
+        toggle.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
+        toggle.translatesAutoresizingMaskIntoConstraints = false
+        return toggle
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupNavigationBar()
+        loadToggleSwitchState()
         view.addSubview(backGroundImage)
         backGroundImage.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0).isActive = true
         backGroundImage.topAnchor.constraint(equalTo: view.topAnchor, constant: 0).isActive = true
@@ -58,6 +102,30 @@ class MenuUIViewController: UIViewController, MenuCollectionViewControllerDelega
         
         menuCollectionViewController.didMove(toParent: self)
         
+        // Setup toggle container as custom view for navigation bar
+        toggleContainerView.addSubview(toggleLabel)
+        toggleContainerView.addSubview(toggleSwitch)
+        
+        // Add toggle target
+        toggleSwitch.addTarget(self, action: #selector(togglePlayerOptions), for: .valueChanged)
+        
+        //toggleLabel.backgroundColor = .red
+
+        // Setup constraints within the container
+        NSLayoutConstraint.activate([
+            toggleContainerView.heightAnchor.constraint(equalToConstant: 26),
+            toggleContainerView.widthAnchor.constraint(equalToConstant: 100),
+            
+            
+            toggleLabel.leadingAnchor.constraint(equalTo: toggleContainerView.leadingAnchor, constant: 6),
+            toggleLabel.centerYAnchor.constraint(equalTo: toggleContainerView.centerYAnchor),
+            toggleLabel.widthAnchor.constraint(equalToConstant: 45),
+            
+            toggleSwitch.trailingAnchor.constraint(equalTo: toggleContainerView.trailingAnchor, constant: -8),
+            toggleSwitch.centerYAnchor.constraint(equalTo: toggleContainerView.centerYAnchor),
+            toggleSwitch.leadingAnchor.constraint(greaterThanOrEqualTo: toggleLabel.trailingAnchor, constant: 2)
+        ])
+        
         view.addSubview(imageView)
         imageView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
         imageView.topAnchor.constraint(equalTo: menuCollectionView!.bottomAnchor).isActive = true
@@ -66,97 +134,97 @@ class MenuUIViewController: UIViewController, MenuCollectionViewControllerDelega
         view.layoutIfNeeded()
     }
     
+    private func setupNavigationBar() {
+        navigationItem.title = "BlueBillywig"
+        navigationController?.navigationBar.prefersLargeTitles = false
+        
+        // Add toggle as right bar button item with custom view
+        let customBarButtonItem = UIBarButtonItem(customView: toggleContainerView)
+        navigationItem.rightBarButtonItem = customBarButtonItem
+    }
+    
+    @objc private func togglePlayerOptions() {
+        playerOptionsEnabled = toggleSwitch.isOn
+        saveToggleSwitchState()
+    }
+    
     func didSelectMenuItem(menuItem: MenuItem) {
         if ( menuItem.name != "" ) {
             if let vc = self.storyboard?.instantiateViewController(withIdentifier: menuItem.name) {
                 vc.title = menuItem.title
                 
-                if ( menuItem.name == "Outstream" ) {
-                    let alertController = UIAlertController(title: "Enter your outstream json url", message: nil, preferredStyle: .alert)
-                    
-                    alertController.addTextField { textField in
-                        textField.text = "https://demo.bbvms.com/a/native_sdk_outstream.json"
+                if let configurableVC = vc as? PlayerConfigurable {
+                    if playerOptionsEnabled {
+                        showPlayerConfigurationAlert(for: configurableVC, viewController: vc)
+                    } else {
+                        self.navigationController?.pushViewController(vc, animated: true)
                     }
-                    
-                    let submitAction = UIAlertAction(title: "Submit", style: .default) { _ in
-                        if let text = alertController.textFields?.first?.text {
-                            if let osvc: OutStreamUIViewController = vc as? OutStreamUIViewController {
-                                osvc.jsonUrl = text
-                                self.navigationController?.pushViewController(vc, animated: true)
-                            }
-                        }
-                    }
-                    
-                    alertController.addAction(submitAction)
-                    present(alertController, animated: true, completion: nil)
-                } else if (menuItem.name == "shorts"){
-                    let alertController = UIAlertController(title: "Enter your shorts json url", message: nil, preferredStyle: .alert)
-                    
-                    alertController.addTextField { textField in
-                        textField.text = "https://demo.bbvms.com/sh/43.json"
-                    }
-                    
-                    let submitAction = UIAlertAction(title: "Submit", style: .default) { _ in
-                        if let text = alertController.textFields?.first?.text {
-                            if let svc: ShortsUIViewController = vc as? ShortsUIViewController {
-                                svc.jsonUrl = text
-                                self.navigationController?.pushViewController(vc, animated: true)
-                            }
-                        }
-                    }
-                    
-                    alertController.addAction(submitAction)
-                    present(alertController, animated: true, completion: nil)
-                } else if (menuItem.name == "shorts_shelf"){
-                    let alertController = UIAlertController(title: "Enter your shorts json url", message: nil, preferredStyle: .alert)
-                    
-                    alertController.addTextField { textField in
-                        textField.text = "https://testsuite.acc.bbvms.com/sh/51.json"
-                    }
-                    
-                    let submitAction = UIAlertAction(title: "Submit", style: .default) { _ in
-                        if let text = alertController.textFields?.first?.text {
-                            if let svc: ShortsShelfUIViewController = vc as? ShortsShelfUIViewController {
-                                svc.jsonUrl = text
-                                self.navigationController?.pushViewController(vc, animated: true)
-                            }
-                        }
-                    }
-                    
-                    alertController.addAction(submitAction)
-                    present(alertController, animated: true, completion: nil)
                 } else if (menuItem.name == "BBRenderer") {
-                    print("***** BBRENDERER")
-                    let alertController = UIAlertController(title: "Enter your BBRenderer json url", message: nil, preferredStyle: .alert)
-                    
-                    self.setVastXML()
-                    
-                    alertController.addTextField { textField in
-                        textField.text = "https://bb.dev.bbvms.com/r/puc_inarticle.json"
-                    }
-                    alertController.addTextField { textField in
-                        textField.text = self.vastXML
-                    }
-                    
-                    let submitAction = UIAlertAction(title: "Submit", style: .default) { _ in
-                        print("***** Submitted")
-                        if let jsonString = alertController.textFields?.first?.text {
-                            if let vastString = alertController.textFields?[1].text {
-                                if let bvc: BBRendererUIViewController = vc as? BBRendererUIViewController {
-                                    bvc.jsonUrl = jsonString
-                                    bvc.vastXml = vastString
-                                    self.navigationController?.pushViewController(bvc, animated: true)
-                                }
-                            }
-                        }
-                    }
-                    
-                    alertController.addAction(submitAction)
-                    present(alertController, animated: true, completion: nil)
+                    showBBRendererConfigurationAlert(for: vc)
                 } else {
                     self.navigationController?.pushViewController(vc, animated: true)
                 }
             }
+        }
+    }
+    
+    private func showPlayerConfigurationAlert(for configurableVC: PlayerConfigurable, viewController: UIViewController) {
+        // Store references for delegate callback
+        currentConfigurableVC = configurableVC
+        currentViewController = viewController
+        
+        let optionsEditor = PlayerOptionsEditorViewController()
+        optionsEditor.initialOptions = configurableVC.defaultPlayerOptions
+        optionsEditor.jsonUrl = configurableVC.defaultJsonUrl
+        optionsEditor.delegate = self
+        
+        let navController = UINavigationController(rootViewController: optionsEditor)
+        present(navController, animated: true)
+    }
+    
+    private func showBBRendererConfigurationAlert(for viewController: UIViewController) {
+        let alertController = UIAlertController(title: "Enter your BBRenderer configuration", message: nil, preferredStyle: .alert)
+        
+        self.setVastXML()
+        
+        alertController.addTextField { textField in
+            textField.placeholder = "JSON URL"
+            textField.text = "https://bb.dev.bbvms.com/r/puc_inarticle.json"
+        }
+        alertController.addTextField { textField in
+            textField.placeholder = "VAST XML"
+            textField.text = self.vastXML
+        }
+        
+        let submitAction = UIAlertAction(title: "Submit", style: .default) { _ in
+            if let jsonString = alertController.textFields?[0].text,
+               let vastString = alertController.textFields?[1].text,
+               let bvc = viewController as? BBRendererUIViewController {
+                bvc.jsonUrl = jsonString
+                bvc.vastXml = vastString
+                self.navigationController?.pushViewController(viewController, animated: true)
+            }
+        }
+        
+        alertController.addAction(submitAction)
+        present(alertController, animated: true, completion: nil)
+    }
+    
+    private func convertOptionsToJSONString(_ options: [String: Any]) -> String {
+        do {
+            let jsonData = try JSONSerialization.data(withJSONObject: options, options: .prettyPrinted)
+            return String(data: jsonData, encoding: .utf8) ?? "{}"
+        } catch {
+            return "{}"
+        }
+    }
+    
+    private func parseOptionsFromJSONString(_ jsonString: String) -> [String: Any]? {
+        guard let jsonData = jsonString.data(using: .utf8) else { return nil }
+        do {
+            return try JSONSerialization.jsonObject(with: jsonData, options: []) as? [String: Any]
+        } catch {
+            return nil
         }
     }
 }
@@ -487,5 +555,31 @@ extension MenuUIViewController {
   </Ad>
  </VAST>
 """
+    }
+    
+    // MARK: - PlayerOptionsEditorDelegate
+    
+    func didSaveOptions(_ options: [String: Any], jsonUrl: String) {
+        guard var configurableVC = currentConfigurableVC,
+              let viewController = currentViewController else { return }
+        
+        configurableVC.jsonUrl = jsonUrl
+        configurableVC.playerOptions = options
+        
+        navigationController?.pushViewController(viewController, animated: true)
+        
+        // Clear references
+        currentConfigurableVC = nil
+        currentViewController = nil
+    }
+    
+    private func loadToggleSwitchState() {
+        let savedState = UserDefaults.standard.bool(forKey: "playerOptionsEnabled")
+        toggleSwitch.isOn = savedState
+        playerOptionsEnabled = savedState
+    }
+    
+    private func saveToggleSwitchState() {
+        UserDefaults.standard.set(toggleSwitch.isOn, forKey: "playerOptionsEnabled")
     }
 }

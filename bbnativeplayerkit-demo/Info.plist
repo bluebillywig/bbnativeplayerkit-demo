@@ -28,10 +28,13 @@
 	<string>${PRODUCT_NAME} uses Bluetooth to discover nearby Cast devices.</string>
 	<key>NSBluetoothPeripheralUsageDescription</key>
 	<string>${PRODUCT_NAME} uses Bluetooth to discover nearby Cast devices.</string>
+	<key>NSLocalNetworkUsageDescription</key>
+	<string>This app needs local area network access for google chromecast</string>
 	<key>NSBonjourServices</key>
 	<array>
+		<string>_lnp._tcp</string>
 		<string>_googlecast._tcp</string>
-		<string>_CC1AD845._googlecast._tcp</string>
+		<string>_1F61A3A5._googlecast._tcp</string>
 	</array>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>${PRODUCT_NAME} uses microphone access to listen for ultrasonic tokens

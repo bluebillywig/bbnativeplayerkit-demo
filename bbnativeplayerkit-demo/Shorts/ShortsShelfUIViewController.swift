@@ -9,15 +9,28 @@ import Foundation
 import UIKit
 import BBNativePlayerKit
 
-class ShortsShelfUIViewController: UIViewController {
+class ShortsShelfUIViewController: UIViewController, PlayerConfigurable {
 
     internal var bbShortsViewShelf: BBNativeShortsView? = nil
-    internal var jsonUrl:String = "https://demo.bbvms.com/sh/43.json"
+    var jsonUrl: String = "https://testsuite.acc.bbvms.com/sh/51.json"
+    var playerOptions: [String: Any] = ["displayFormat": "list"]
+    
+    var defaultJsonUrl: String {
+        return "https://testsuite.acc.bbvms.com/sh/51.json"
+    }
+    
+    var defaultPlayerOptions: [String: Any] {
+        return playerOptions
+    }
+    
+    var alertTitle: String {
+        return "Enter Shorts Shelf demo configuration"
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        bbShortsViewShelf = BBNativeShorts.createShortsView(uiViewController: self, frame: view.frame, jsonUrl: jsonUrl, options: ["displayFormat": "list"])
+        bbShortsViewShelf = BBNativeShorts.createShortsView(uiViewController: self, frame: view.frame, jsonUrl: jsonUrl, options: playerOptions)
         view.addSubview(bbShortsViewShelf!)
         bbShortsViewShelf?.translatesAutoresizingMaskIntoConstraints = false
         bbShortsViewShelf?.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor).isActive = true
