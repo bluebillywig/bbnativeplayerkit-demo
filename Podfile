@@ -3,10 +3,6 @@ platform :ios, '14.0'
 
 target 'bbnativeplayerkit-demo' do
   # Pods for bbnativeplayerkit-demo
-  pod 'BlueBillywigNativePlayerKit-iOS', '~> 8.32'
+  pod 'BlueBillywigNativePlayerKit-iOS', '~> 8.37'
   pod 'BlueBillywigNativePlayerKit-iOS/GoogleCastSDKNoBluetooth'
-
-  # pod 'BlueBillywigNativePlayerKit-iOS', :path => '../bbnativeplayerkit-cocoapod'
-  # pod 'BlueBillywigNativePlayerKit-iOS/GoogleCastSDKNoBluetooth', :path => '../bbnativeplayerkit-cocoapod'
-  # pod 'BlueBillywigNativeShared-iOS', :path => '../bbnativeshared-cocoapod'
 end

@@ -63,17 +63,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		ED9D45982DC925E800F7E419 /* BBRenderer */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-			);
-			explicitFileTypes = {
-			};
-			explicitFolders = (
-			);
-			path = BBRenderer;
-			sourceTree = "<group>";
-		};
+		ED9D45982DC925E800F7E419 /* BBRenderer */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = BBRenderer; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -269,8 +259,8 @@
 				ED533D3725EE2D5A007F22A8 /* Sources */,
 				ED533D3825EE2D5A007F22A8 /* Frameworks */,
 				ED533D3925EE2D5A007F22A8 /* Resources */,
-				0900B1836DFEDCCC46DC96E9 /* [CP] Embed Pods Frameworks */,
-				74A6E4BE9C750C4C55E0949F /* [CP] Copy Pods Resources */,
+				0C014C7AEEA728B3CAE8ADE9 /* [CP] Embed Pods Frameworks */,
+				D86DB76033772E13F70B2678 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -330,7 +320,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0900B1836DFEDCCC46DC96E9 /* [CP] Embed Pods Frameworks */ = {
+		0C014C7AEEA728B3CAE8ADE9 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -369,7 +359,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		74A6E4BE9C750C4C55E0949F /* [CP] Copy Pods Resources */ = {
+		D86DB76033772E13F70B2678 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -555,7 +545,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 8.25.0;
+				MARKETING_VERSION = 8.37.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.bluebillywig.bbnativeplayerkit-demo";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -582,7 +572,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 8.25.0;
+				MARKETING_VERSION = 8.37.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.bluebillywig.bbnativeplayerkit-demo";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
