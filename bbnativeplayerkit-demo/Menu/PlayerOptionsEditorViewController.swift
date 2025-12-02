@@ -164,6 +164,13 @@ class PlayerOptionsEditorViewController: UIViewController {
         return stackView
     }()
     
+    private let shortsDisplaySegment: UISegmentedControl = {
+        let segment = UISegmentedControl(items: ["Default", "Shelf"])
+        segment.selectedSegmentIndex = 0
+        segment.translatesAutoresizingMaskIntoConstraints = false
+        return segment
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
@@ -236,7 +243,8 @@ class PlayerOptionsEditorViewController: UIViewController {
             createLabeledControl("Disable ChromeCast:", control: noChromeCastSwitch),
             createLabeledControl("Show ChromeCast Mini Controls:", control: showChromeCastMiniControlsInPlayerSwitch),
             createLabeledControl("Disable Stats:", control: noStatsSwitch),
-            createLabeledControl("Force Fullscreen Landscape:", control: forceFullscreenLandscapeSwitch)
+            createLabeledControl("Force Fullscreen Landscape:", control: forceFullscreenLandscapeSwitch),
+            createLabeledControl("Shorts Display:", control: shortsDisplaySegment),
         ]))
         
         // Consent Management Section
@@ -327,6 +335,9 @@ class PlayerOptionsEditorViewController: UIViewController {
         showChromeCastMiniControlsInPlayerSwitch.isOn = boolValue(for: "showChromeCastMiniControlsInPlayer")
         noStatsSwitch.isOn = initialOptions["noStats"] as? Bool ?? false
         forceFullscreenLandscapeSwitch.isOn = boolValue(for: "forceFullscreenLandscape")
+        if let displayFormat = initialOptions["displayFormat"] as? String {
+            shortsDisplaySegment.selectedSegmentIndex = (displayFormat == "list") ? 1 : 0
+        }
         
         // Load Consent Management values
         waitForCmpSwitch.isOn = boolValue(for: "waitForCmp")
@@ -468,6 +479,7 @@ class PlayerOptionsEditorViewController: UIViewController {
         options["showChromeCastMiniControlsInPlayer"] = showChromeCastMiniControlsInPlayerSwitch.isOn
         options["noStats"] = noStatsSwitch.isOn
         options["forceFullscreenLandscape"] = forceFullscreenLandscapeSwitch.isOn
+        options["displayFormat"] = shortsDisplaySegment.selectedSegmentIndex == 0 ? "" : "list"
         
         // Consent Management options
         options["waitForCmp"] = waitForCmpSwitch.isOn
