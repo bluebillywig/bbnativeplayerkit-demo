@@ -23,7 +23,6 @@ DerivedData/
 !default.perspectivev3
 
 xcuserdata
-Pods/Pods.xcodeproj/xcuserdata/
 
 ## Obj-C/Swift specific
 *.hmap
@@ -51,17 +50,10 @@ playground.xcworkspace
 
 .build/
 
-# CocoaPods
-#
-# We recommend against adding the Pods directory to your .gitignore. However
-# you should judge for yourself, the pros and cons are mentioned at:
-# https://guides.cocoapods.org/using/using-cocoapods.html#should-i-check-the-pods-directory-into-source-control
-#
-Pods/
-Podfile.lock
-#
-# Add this line if you want to avoid checking in source code from the Xcode workspace
-*.xcworkspace
+# CocoaPods leftover (the demo uses Swift Package Manager since #21383). The workspace
+# CocoaPods generated at the repo root must never be committed; delete it together
+# with Pods/ and Podfile.lock, see README.
+/bbnativeplayerkit-demo.xcworkspace
 
 # Carthage
 #

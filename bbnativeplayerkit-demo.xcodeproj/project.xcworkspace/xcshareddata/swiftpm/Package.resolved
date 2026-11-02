@@ -1,0 +1,42 @@
+{
+  "originHash" : "d4714df3a927223651c0ff1680857e06ed040e2a7019ad915e508b0323a53d3e",
+  "pins" : [
+    {
+      "identity" : "bbnativeplayerkit-cocoapod",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/bluebillywig/bbnativeplayerkit-cocoapod",
+      "state" : {
+        "revision" : "50f212a46703b04f57192087288c14038b624e28",
+        "version" : "8.62.0"
+      }
+    },
+    {
+      "identity" : "bbnativeshared-cocoapod",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/bluebillywig/bbnativeshared-cocoapod",
+      "state" : {
+        "revision" : "bcd54a1360fb7799b5987747dfcebe70b564db30",
+        "version" : "8.62.0"
+      }
+    },
+    {
+      "identity" : "swift-package-manager-google-interactive-media-ads-ios",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/googleads/swift-package-manager-google-interactive-media-ads-ios",
+      "state" : {
+        "revision" : "8b8e3bbe0b8044cdfeedeadae3e8dc871017c31d",
+        "version" : "3.23.0"
+      }
+    },
+    {
+      "identity" : "swift-package-manager-google-user-messaging-platform",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/googleads/swift-package-manager-google-user-messaging-platform",
+      "state" : {
+        "revision" : "708a282840c2171ee63bd93b87afa49fe507d70e",
+        "version" : "2.7.0"
+      }
+    }
+  ],
+  "version" : 3
+}
