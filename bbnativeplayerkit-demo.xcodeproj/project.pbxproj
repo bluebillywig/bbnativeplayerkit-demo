@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0DF4C7883D76908705BD3072 /* libPods-bbnativeplayerkit-demo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A1D81934D4BEA7E8A663CA44 /* libPods-bbnativeplayerkit-demo.a */; };
+		2F2F9C38552B4EFA84901CCA /* BlueBillywigNativePlayerKit-iOS in Frameworks */ = {isa = PBXBuildFile; productRef = F6EBC301C63842A5B5806358 /* BlueBillywigNativePlayerKit-iOS */; };
 		ED533D6525EE2DE9007F22A8 /* APIUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED533D5525EE2DE9007F22A8 /* APIUIViewController.swift */; };
 		ED533D6625EE2DE9007F22A8 /* InOutViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED533D5725EE2DE9007F22A8 /* InOutViewViewController.swift */; };
 		ED533D6725EE2DE9007F22A8 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED533D5A25EE2DE9007F22A8 /* ListViewController.swift */; };
@@ -33,9 +33,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		037F00D8464F9D1B5453F228 /* Pods-bbnativeplayerkit-demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bbnativeplayerkit-demo.debug.xcconfig"; path = "Target Support Files/Pods-bbnativeplayerkit-demo/Pods-bbnativeplayerkit-demo.debug.xcconfig"; sourceTree = "<group>"; };
-		63F2AB860CD6EEBC5FBFD08B /* Pods-bbnativeplayerkit-demo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bbnativeplayerkit-demo.release.xcconfig"; path = "Target Support Files/Pods-bbnativeplayerkit-demo/Pods-bbnativeplayerkit-demo.release.xcconfig"; sourceTree = "<group>"; };
-		A1D81934D4BEA7E8A663CA44 /* libPods-bbnativeplayerkit-demo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-bbnativeplayerkit-demo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED533D3B25EE2D5A007F22A8 /* bbnativeplayerkit-demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "bbnativeplayerkit-demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED533D4C25EE2D5C007F22A8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		ED533D5525EE2DE9007F22A8 /* APIUIViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIUIViewController.swift; sourceTree = "<group>"; };
@@ -71,37 +68,18 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0DF4C7883D76908705BD3072 /* libPods-bbnativeplayerkit-demo.a in Frameworks */,
+				2F2F9C38552B4EFA84901CCA /* BlueBillywigNativePlayerKit-iOS in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		3C83FFA92B5FF95E0FDECFD7 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				037F00D8464F9D1B5453F228 /* Pods-bbnativeplayerkit-demo.debug.xcconfig */,
-				63F2AB860CD6EEBC5FBFD08B /* Pods-bbnativeplayerkit-demo.release.xcconfig */,
-			);
-			path = Pods;
-			sourceTree = "<group>";
-		};
-		6C1DCC80CDEA1F1D7DDB2B58 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				A1D81934D4BEA7E8A663CA44 /* libPods-bbnativeplayerkit-demo.a */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		ED533D3225EE2D5A007F22A8 = {
 			isa = PBXGroup;
 			children = (
 				ED533D3D25EE2D5A007F22A8 /* bbnativeplayerkit-demo */,
 				ED533D3C25EE2D5A007F22A8 /* Products */,
-				3C83FFA92B5FF95E0FDECFD7 /* Pods */,
-				6C1DCC80CDEA1F1D7DDB2B58 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -255,12 +233,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = ED533D4F25EE2D5C007F22A8 /* Build configuration list for PBXNativeTarget "bbnativeplayerkit-demo" */;
 			buildPhases = (
-				0DD7AE4B3B77412AF492B571 /* [CP] Check Pods Manifest.lock */,
 				ED533D3725EE2D5A007F22A8 /* Sources */,
 				ED533D3825EE2D5A007F22A8 /* Frameworks */,
 				ED533D3925EE2D5A007F22A8 /* Resources */,
-				0C014C7AEEA728B3CAE8ADE9 /* [CP] Embed Pods Frameworks */,
-				D86DB76033772E13F70B2678 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -270,6 +245,9 @@
 				ED9D45982DC925E800F7E419 /* BBRenderer */,
 			);
 			name = "bbnativeplayerkit-demo";
+			packageProductDependencies = (
+				F6EBC301C63842A5B5806358 /* BlueBillywigNativePlayerKit-iOS */,
+			);
 			productName = "bbnativeplayerkit-demo";
 			productReference = ED533D3B25EE2D5A007F22A8 /* bbnativeplayerkit-demo.app */;
 			productType = "com.apple.product-type.application";
@@ -297,6 +275,9 @@
 				Base,
 			);
 			mainGroup = ED533D3225EE2D5A007F22A8;
+			packageReferences = (
+				426A6171D50C4D9E8613168D /* XCRemoteSwiftPackageReference "bbnativeplayerkit-cocoapod" */,
+			);
 			productRefGroup = ED533D3C25EE2D5A007F22A8 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -318,65 +299,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		0C014C7AEEA728B3CAE8ADE9 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-bbnativeplayerkit-demo/Pods-bbnativeplayerkit-demo-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-bbnativeplayerkit-demo/Pods-bbnativeplayerkit-demo-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-bbnativeplayerkit-demo/Pods-bbnativeplayerkit-demo-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		0DD7AE4B3B77412AF492B571 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-bbnativeplayerkit-demo-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		D86DB76033772E13F70B2678 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-bbnativeplayerkit-demo/Pods-bbnativeplayerkit-demo-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-bbnativeplayerkit-demo/Pods-bbnativeplayerkit-demo-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-bbnativeplayerkit-demo/Pods-bbnativeplayerkit-demo-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		ED533D3725EE2D5A007F22A8 /* Sources */ = {
@@ -460,7 +382,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -516,7 +438,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -528,24 +450,19 @@
 		};
 		ED533D5025EE2D5C007F22A8 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 037F00D8464F9D1B5453F228 /* Pods-bbnativeplayerkit-demo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = PFYB2YN255;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)",
-				);
 				INFOPLIST_FILE = "bbnativeplayerkit-demo/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 8.37.0;
+				MARKETING_VERSION = 8.62.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.bluebillywig.bbnativeplayerkit-demo";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -555,24 +472,19 @@
 		};
 		ED533D5125EE2D5C007F22A8 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 63F2AB860CD6EEBC5FBFD08B /* Pods-bbnativeplayerkit-demo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = PFYB2YN255;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)",
-				);
 				INFOPLIST_FILE = "bbnativeplayerkit-demo/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 8.37.0;
+				MARKETING_VERSION = 8.62.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.bluebillywig.bbnativeplayerkit-demo";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -602,6 +514,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		426A6171D50C4D9E8613168D /* XCRemoteSwiftPackageReference "bbnativeplayerkit-cocoapod" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/bluebillywig/bbnativeplayerkit-cocoapod";
+			requirement = {
+				kind = exactVersion;
+				version = 8.62.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		F6EBC301C63842A5B5806358 /* BlueBillywigNativePlayerKit-iOS */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 426A6171D50C4D9E8613168D /* XCRemoteSwiftPackageReference "bbnativeplayerkit-cocoapod" */;
+			productName = "BlueBillywigNativePlayerKit-iOS";
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = ED533D3325EE2D5A007F22A8 /* Project object */;
 }
